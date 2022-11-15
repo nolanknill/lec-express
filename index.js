@@ -5,14 +5,12 @@ const PORT = 8080;
 const contestantsRoutes = require("./routes/contestants");
 const requireApiKey = require("./middleware/requireApiKey");
 
-// TODO: figure out not calling middleware when static assets are loaded
-
 app.use(cors());
 app.use(express.static("public"));
-app.use(requireApiKey);
 app.use(express.json());
 
-app.use("/contestants", contestantsRoutes);
+// Only use requireApiKey middleware on /contestants routes
+app.use("/contestants", requireApiKey, contestantsRoutes);
 
 app.listen(PORT, () => {
     console.log("Only going to see this");

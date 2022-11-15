@@ -1,28 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const fs = require('fs');
-const path = require('path');
-
-const filePath = path.join(__dirname, "../data/contestants.json");
-
-function getContestants() {
-    const contestantsJson = fs.readFileSync(filePath);
-    
-    return JSON.parse(contestantsJson);
-}
-
-function saveContestants(contestants) {
-    fs.writeFileSync(
-        filePath, 
-        JSON.stringify(contestants)
-    );
-}
-
-function getNextId() {
-    const contestants = getContestants();
-    contestants.sort((a,b) => b.id - a.id);
-    return contestants[0].id + 1;
-}
+const { getContestants, saveContestants, getNextContestantId } = require("../models/contestants");
 
 router
     .route("/")
@@ -64,7 +42,7 @@ router
         }
 
         const newContestant = {
-            id: getNextId(),
+            id: getNextContestantId(),
             name: req.body.name,
             hometown: req.body.hometown,
             country: req.body.country,

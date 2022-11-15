@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
+const path = require('path');
 
-const filePath = "./data/contestants.json";
+const filePath = path.join(__dirname, "../data/contestants.json");
 
 function getContestants() {
     const contestantsJson = fs.readFileSync(filePath);

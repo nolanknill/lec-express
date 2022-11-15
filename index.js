@@ -6,7 +6,6 @@ const contestantsRoutes = require("./routes/contestants");
 const requireApiKey = require("./middleware/requireApiKey");
 
 // TODO: figure out not calling middleware when static assets are loaded
-// TODO: paths in route files
 
 app.use(cors());
 app.use(express.static("public"));
